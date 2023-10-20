@@ -1,0 +1,39 @@
+# How to get a VIATOR HART USB modem to work on linux
+
+There are two types of VIATOR HART USB modems. One based on Texas Instruments TUSB3210PM.  
+Another based on FTDI chip set (seems to be available since ~2023) is possible to be used on linux (tested on Ubuntu 21.2).
+
+ 
+$ dmesg
+usb 3-1.1: new full-speed USB device number 15 using xhci_hcd
+usb 3-1.1: New USB device found, idVendor=10e5, idProduct=0031, bcdDevice= 1.01
+usb 3-1.1: New USB device strings: Mfr=1, Product=3, SerialNumber=0
+usb 3-1.1: Product: VIATOR USB HART Interface
+usb 3-1.1: Manufacturer: MACTek Corporation
+
+usb 3-1.2: new full-speed USB device number 14 using xhci_hcd
+usb 3-1.2: New USB device found, idVendor=23a1, idProduct=010d, bcdDevice= 6.00
+usb 3-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+usb 3-1.2: Product: VIATOR USB HART Interface
+usb 3-1.2: Manufacturer: P+F
+
+$ lsusb | grep VIATOR
+Bus 003 Device 004: ID 10e5:0031 MACTek Corporation VIATOR USB HART Interface
+Bus 003 Device 006: ID 23a1:010d  VIATOR USB HART Interface
+
+
+# let device 23a1:010d use FTDI's generic USB to serial driver
+sudo su
+modprobe ftdi_sio
+echo 23a1 010d >/sys/bus/usb-serial/drivers/ftdi_sio/new_id 
+
+
+usb 3-1.2: new full-speed USB device number 17 using xhci_hcd
+usb 3-1.2: New USB device found, idVendor=23a1, idProduct=010d, bcdDevice= 6.00
+usb 3-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+usb 3-1.2: Manufacturer: P+F
+usb 3-1.2: SerialNumber: ********
+ftdi_sio 3-1.2:1.0: FTDI USB Serial Device converter detected
+usb 3-1.2: Detected FT232RL
+usb 3-1.2: FTDI USB Serial Device converter now attached to ttyUSB0
+

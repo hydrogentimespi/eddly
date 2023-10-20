@@ -1,0 +1,26 @@
+﻿/*****************************************************************************
+ *
+ * Example text dictionary
+ *
+*****************************************************************************/
+
+[1,0]  main_menu
+     "Main menu"
+    "|de|Hauptmenü"
+
+[1,1]  configuration_menu
+     "Configuration menu"
+    "|de|Konfigurationsmenü"
+
+[1,2]  diagnostics_menu
+     "Diagnostics menu"
+    "|de|Diagnosemenü"
+
+[2,0]  config_data_string
+     "Configuration"
+    "|de|Konfiguration"
+
+[2,0]  warning_message
+     "⚠ Warning ⚠"
+    "|de|⚠ Warnung ⚠"
+
