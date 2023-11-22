@@ -17,9 +17,10 @@ This work is distributed under the MIT license. See [LICENSE](LICENSE) for detai
 
 ## Features
 
-- supports C-like preprocessing (#include, #define,...)
+- supports C-like preprocessing (#include, #define,...) with preprocessed output for debugging
 - can read standard dc8 text libraries and handle [text_ref] references
 - basic parsing support for COMMANDs, VARIABLEs, MENUs with focus on HART. Other edd keywords (IMPORT, METHOD, GRID, IF, ELSE,...) currently unsupported.
+- print menu tree in ascii-art.
 
 ## How it works
 
@@ -33,25 +34,35 @@ The demo.py file will print
 ```python
 # Edd meta data: manufacturer 255, device type 38911, dd revision 1, device revision 1
 # commands
-{   'write_configuration': {   'NUMBER': 128,
+{   'write_configuration': {   'NUMBER': 555,
                                'OPERATION': 'WRITE',
                                'TRANSACTIONS': {   0: {   'REQUEST': [   'config_data']}}}}
 # variables
-{   'config_data': {   'CLASS': ['LOCAL', 'DYNAMIC'],
+{   'sensor_unit': {   'CLASS': ['LOCAL', 'DYNAMIC'],
                        'FORMAT': 'UNSIGNED_INTEGER',
                        'HANDLING': ['READ', 'WRITE'],
-                       'LABEL': 'Configuration',
-                       'SIZE': 1}}
+                       'SIZE': 1},
+    'sensor_value': {   'CLASS': ['LOCAL', 'DYNAMIC'],
+                        'FORMAT': 'FLOAT',
+                        'HANDLING': ['READ', 'WRITE'],
+                        'LABEL': 'Measurement'}}
 # menues
-{   'configuration_menu': {   'ITEMS': ['config_data'],
+{   'configuration_menu': {   'ITEMS': ['sensor_value', 'sensor_unit'],
                               'LABEL': 'Configuration menu'},
-    'diagnostics_menu': {   'ITEMS': ['"diagnostics stuff"'],
+    'diagnostics_menu': {   'ITEMS': ['"device status"', '"process status"'],
                             'LABEL': 'Diagnostics menu'},
     'root_menu': {   'ITEMS': ['configuration_menu', 'diagnostics_menu'],
                      'LABEL': 'Main menu'}}
+   Main menu
+   ├─── Configuration menu
+   │    ├─── Measurement
+   │    └─── sensor_unit
+   └─── Diagnostics menu
+        ├─── device status
+        └─── process status
 ```
 
-## Intallation
+## Installation
 
 Install required external modules with
 ```sh
@@ -60,8 +71,7 @@ pip install sly pcpp
 
 ## TODO
 
-- implement more edd keywords
-- improve handling and ignoring of unsupported keywords; get rid of sly WARNING messages
+- improve handling and ignoring of unsupported keywords; get rid of sly WARNING messages. Parsing currently fails if ignored keyword is the last in pp'ed input
 
 ## Caution
 

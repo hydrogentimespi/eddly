@@ -188,11 +188,18 @@ class Eddl_parser(Parser):
 
     @_('menu_item',
        'menu_items COMMA menu_item',
+       'menu_items COMMA COLUMNBREAK COMMA menu_item',      # TODO will work only if not 1st or last entry
+       'menu_items COMMA ROWBREAK COMMA menu_item',
+       'menu_items COLUMNBREAK COMMA menu_item',
+       'menu_items ROWBREAK COMMA menu_item',
+       'menu_items COMMA COLUMNBREAK menu_item',
+       'menu_items COMMA ROWBREAK menu_item',
        'menu_items menu_item')
     def menu_items(self, p):
         self.menu_itemlist.append(p.menu_item)
 
-    @_('ITEMS LCURLY menu_items RCURLY')
+    @_('ITEMS LCURLY RCURLY',
+       'ITEMS LCURLY menu_items RCURLY')
     def menu_property_items(self, p):
         pass
 
@@ -355,7 +362,7 @@ class Eddl_parser(Parser):
     @_( 'I_NUM COMMA command_response_code_type COMMA somestring SEMI')
     def command_response_code_item(self, p):
         assert not p.I_NUM in self.command_response_codes_dict, f'response code {p.I_NUM} already defined'
-        self.command_response_codes_dict[p.I_NUM] = [p.command_response_code_type, p.somestring]
+        self.command_response_codes_dict[int(p.I_NUM)] = [p.command_response_code_type, p.somestring]
 
     @_( 'DATA_ENTRY_ERROR',
         'DATA_ENTRY_WARNING',
@@ -393,6 +400,7 @@ class Eddl_parser(Parser):
     def somestring(self, p):
         assert p.ID in self.text_dictionary, f' dictionary string {p.ID} not found'
         string = re.sub(r'\|.*', '', self.text_dictionary[p.ID])
+        #print(f'[0,0] {p.ID} "{self.text_dictionary[p.ID]}"')       # print only the used texts to console
         return string
 
     @_( 'HELP somestring SEMI', 'REDEFINE HELP somestring SEMI')

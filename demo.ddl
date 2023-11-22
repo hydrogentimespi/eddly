@@ -11,9 +11,16 @@ MANUFACTURER 255, DEVICE_TYPE 38911, DEVICE_REVISION 1, DD_REVISION 1
 #include "demo_menu.ddl"
 #endif
 
-VARIABLE config_data
+VARIABLE sensor_value
 {
-    LABEL [config_data_string];
+    LABEL [sensor_value_string];
+    CLASS LOCAL & DYNAMIC;
+    HANDLING READ & WRITE;
+    TYPE FLOAT;
+}
+
+VARIABLE sensor_unit
+{
     CLASS LOCAL & DYNAMIC;
     HANDLING READ & WRITE;
     TYPE UNSIGNED_INTEGER(1);
@@ -21,7 +28,7 @@ VARIABLE config_data
 
 COMMAND write_configuration
 {
-    NUMBER 128;
+    NUMBER 555;
     OPERATION WRITE;
     TRANSACTION
     {

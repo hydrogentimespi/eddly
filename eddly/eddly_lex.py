@@ -29,6 +29,7 @@ class Eddl_lexer(Lexer):
         # DDL MENU tokens
 		MENU, ITEMS,
 		# TODO common tokens, e.g. LABEL,
+        COLUMNBREAK, ROWBREAK,
 		STYLE,
 
         # DDL METHOD tokens
@@ -86,7 +87,6 @@ class Eddl_lexer(Lexer):
     F_NUM     = r'[+-]?(\d+)+\.(\d+)+([eE][+-]?\d+)?'        # '.5e7'  or '5.e7' not covered
     H_NUM     = r'0[xX][a-zA-Z0-9]+'
     I_NUM     = r'-?\d+'
-
     EQUALS    = '=='
     NEQUALS   = '!='
     BOOLOR    = '\|\|'
@@ -128,6 +128,7 @@ class Eddl_lexer(Lexer):
     ID['BIT_ENUMERATED']      = BIT_ENUMERATED
     ID['CLASS']               = CLASS
     ID['COLLECTION']          = COLLECTION
+    ID['COLUMNBREAK']         = COLUMNBREAK
     ID['COMMAND']             = COMMAND
     ID['CONSTANT_UNIT']       = CONSTANT_UNIT
     ID['CORRECTABLE']         = CORRECTABLE
@@ -182,6 +183,7 @@ class Eddl_lexer(Lexer):
     ID['REPLY']               = REPLY
     ID['REQUEST']             = REQUEST
     ID['RESPONSE_CODES']      = RESPONSE_CODES
+    ID['ROWBREAK']            = ROWBREAK
     ID['SERVICE']             = SERVICE
     ID['STYLE']               = STYLE
     ID['SUCCESS']             = SUCCESS

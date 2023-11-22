@@ -13,7 +13,8 @@ MENU configuration_menu
     LABEL [configuration_menu];
     ITEMS
     {
-        config_data
+        sensor_value,
+        sensor_unit
     }
 }
 
@@ -22,7 +23,8 @@ MENU diagnostics_menu
     LABEL [diagnostics_menu];
     ITEMS
     {
-        "diagnostics stuff"
+        "device status",
+        "process status"
     }
 }
 

@@ -16,9 +16,13 @@
      "Diagnostics menu"
     "|de|Diagnosemenü"
 
-[2,0]  config_data_string
-     "Configuration"
-    "|de|Konfiguration"
+[2,0]  sensor_value_string
+     "Measurement"
+    "|de|Messwert"
+
+[2,0]  sensor_unit_string
+     "Unit"
+    "|de|Einheit"
 
 [2,0]  warning_message
      "⚠ Warning ⚠"

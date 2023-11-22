@@ -15,3 +15,6 @@ pp.pprint(myedd.variables)
 print('# menues')
 pp.pprint(myedd.menues)
 
+
+myedd.print_menu_tree('root_menu')
+
